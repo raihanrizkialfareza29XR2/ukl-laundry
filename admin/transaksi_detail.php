@@ -8,7 +8,40 @@ $data = ambilsatubaris($conn,$query);
 if(isset($_POST['btn-simpan'])){
     $status     = $_POST['status'];
     $qty     = $_POST['qty'];
-    $total_harga     = $_POST['qty'] * $data['harga'];
+    $diskon = $data['diskon'];
+    $pajak = $data['pajak'];
+    $biaya_tambahan = $data['biaya_tambahan'];
+    if ($biaya_tambahan != 0) {
+        $total_harga = $data['harga'] * $qty + $biaya_tambahan;
+    } elseif($diskon != 0) {
+        $total = $data['harga'] * $qty;
+        $diskon = ($diskon/100) * $total;
+        $total_harga = $total - $diskon;
+    } elseif($pajak != 0) {
+        $total = $data['harga'] * $qty;
+        $pajak = ($pajak/100) * $total;
+        $total_harga = $total + $pajak;
+    } elseif($biaya_tambahan != 0 AND $diskon != 0) {
+        $total = $data['harga'] * $qty;
+        $diskon = ($diskon/100) * $total;
+        $total_harga = ($total - $diskon) + $biaya_tambahan;
+    } elseif($biaya_tambahan != 0 AND $pajak != 0) {
+        $total = $data['harga'] * $qty;
+        $pajak = ($pajak/100) * $total;
+        $total_harga = $total + $pajak + $biaya_tambahan;
+    } elseif($diskon != 0 AND $pajak != 0) {
+        $total = $data['harga'] * $qty;
+        $diskon = ($diskon/100) * $total;
+        $pajak = ($pajak/100) * $total;
+        $total_harga = ($total - $diskon) + $pajak;
+    } elseif($diskon != 0 AND $pajak != 0 AND $biaya_tambahan != 0) {
+        $total = $data['harga'] * $qty;
+        $diskon = ($diskon/100) * $total;
+        $pajak = ($pajak/100) * $total;
+        $total_harga = ($total - $diskon) + $pajak + $biaya_tambahan;
+    } else {
+        $total_harga = $data['harga'] * qty;
+    }
     if ($data['status_bayar'] == 'dibayar') {
         $query = "UPDATE transaksi SET status = '$status' WHERE id_transaksi = " . $_GET['id'];
     } else {
@@ -110,8 +143,15 @@ require'layout_header.php';
                 <?php if($data['status_bayar'] == 'dibayar'): ?>
                     <div class="form-group">
                         <label>Status Transaksi</label>
-                        <input type="text" readonly="" name="status" class="form-control" value="<?= $data['status'] ?>">
-                        <small>Jika pembayaran sudah dilakukan maka status tidak dapat diubah</small>
+                        <select name="status" class="form-control">
+                            <?php foreach ($status as $key): ?>
+                            <?php if ($key == $data['status']): ?>
+                            <option value="<?= $key ?>" selected><?= $key ?></option>
+                            <?php endif ?>
+                            <option value="<?= $key ?>"><?= $key ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        <small>Klik Tombol Ubah Untuk Menyimpan Perubahan Transaksi</small>
                     </div>
                 <?php else: ?>
                     <div class="form-group">
@@ -121,8 +161,10 @@ require'layout_header.php';
                             <?php if ($key == $data['status']): ?>
                             <option value="<?= $key ?>" selected><?= $key ?></option>
                             <?php endif ?>
-                            <option value="<?= $key ?>"><?= $key ?></option>
                             <?php endforeach ?>
+                            <option value="baru">baru</option>
+                            <option value="proses">proses</option>
+                            <option value="selesai">selesai</option>
                         </select>
                         <small>Klik Tombol Ubah Untuk Menyimpan Perubahan Transaksi</small>
                     </div>
