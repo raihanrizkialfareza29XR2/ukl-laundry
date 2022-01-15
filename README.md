@@ -1,3 +1,3 @@
-# phpnative-aplikasi-laundry
+# phpnative ukl
 
-Silahkan buat database dengan nama ujikom_laundry dan import db nya
+Pokoknya Sesuai Modul
