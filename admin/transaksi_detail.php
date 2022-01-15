@@ -107,6 +107,13 @@ require'layout_header.php';
                     <input readonly=""   type="text" name="biaya_tambahan" class="form-control" value="<?= $data['batas_waktu'] ?>"> 
                 </div>
                 <?php  endif;?>
+                <?php if($data['status_bayar'] == 'dibayar'): ?>
+                    <div class="form-group">
+                        <label>Status Transaksi</label>
+                        <input type="text" readonly="" name="status" class="form-control" value="<?= $data['status'] ?>">
+                        <small>Jika pembayaran sudah dilakukan maka status tidak dapat diubah</small>
+                    </div>
+                <?php else: ?>
                     <div class="form-group">
                         <label>Status Transaksi</label>
                         <select name="status" class="form-control">
@@ -119,6 +126,7 @@ require'layout_header.php';
                         </select>
                         <small>Klik Tombol Ubah Untuk Menyimpan Perubahan Transaksi</small>
                     </div>
+                <?php  endif;?>
                 <div class="text-right">
                     <button type="submit" name="btn-simpan" class="btn btn-primary">Ubah</button>
                 </div>

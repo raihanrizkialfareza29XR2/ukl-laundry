@@ -1,7 +1,7 @@
 <?php
 $title = 'pengguna';
 require'functions.php';
-$tgl_sekarang = Date('Y-m-d h:i:s');
+$tgl_sekarang = date('Y-m-d h:i:s');
 $tujuh_hari   = mktime(0,0,0,date("n"),date("j")+7,date("Y"));
 $batas_waktu  = date("Y-m-d h:i:s", $tujuh_hari);
 

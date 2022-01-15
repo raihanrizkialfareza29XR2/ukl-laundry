@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V15</title>
+	<title>Login Aplikasi Laundry</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -59,8 +59,8 @@
 						</button>
 					</div>
 					<div class="container-login100-form-btn mt-3">
-						<small>Dibuat Oleh FIKRI SUHERI | Template Login By ColorLib</small>
-						<br><center><p>Repost by <a href='https://stokcoding.com/' title='StokCoding.com' target='_blank'>StokCoding.com</a></p></center>
+						<small>Laundry App By : Raihan Rizki Alfareza</small>
+						<br><center><p>Visit My Official Website : <a class="font-weight-bold" href='https://stokcoding.com/' title='StokCoding.com' target='_blank'>StokCoding.com</a></p></center>
 						
 					</div>
 				</form>
