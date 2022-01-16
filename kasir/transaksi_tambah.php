@@ -1,7 +1,7 @@
 <?php
 $title = 'pengguna';
 require'functions.php';
-$tgl_sekarang = Date('Y-m-d h:i:s');
+$tgl_sekarang = date('Y-m-d h:i:s');
 $tujuh_hari   = mktime(0,0,0,date("n"),date("j")+7,date("Y"));
 $batas_waktu  = date("Y-m-d h:i:s", $tujuh_hari);
 
@@ -11,6 +11,8 @@ $invoice   = 'DRY'.Date('Ymdsi');
 $outlet_id = $_SESSION['outlet_id'];
 $user_id   = $_SESSION['user_id']; 
 $member_id = $_GET['id'];
+
+// var_dump($outlet_id);
 
 $outlet = ambilsatubaris($conn,'SELECT nama_outlet from outlet WHERE id_outlet = ' . $outlet_id);
 $member = ambilsatubaris($conn,'SELECT nama_member from member WHERE id_member = ' . $member_id);
@@ -27,8 +29,44 @@ if(isset($_POST['btn-simpan'])){
     if ($execute == 1) {
         $paket_id = $_POST['paket_id'];
         $qty = $_POST['qty'];
+        $biaya_tambahan = $_POST['biaya_tambahan'];
+        $diskon = $_POST['diskon'];
+        $pajak = $_POST['pajak'];
+        // die($diskon);
         $hargapaket = ambilsatubaris($conn,'SELECT harga from paket WHERE id_paket = ' . $paket_id);
-        $total_harga = $hargapaket['harga'] * $qty;
+        if ($biaya_tambahan != 0) {
+            $total_harga = $hargapaket['harga'] * $qty + $biaya_tambahan;
+        } elseif($diskon != 0) {
+            $total = $hargapaket['harga'] * $qty;
+            $diskon = ($diskon/100) * $total;
+            $total_harga = $total - $diskon;
+        } elseif($pajak != 0) {
+            $total = $hargapaket['harga'] * $qty;
+            $pajak = ($pajak/100) * $total;
+            $total_harga = $total + $pajak;
+        } elseif($biaya_tambahan != 0 AND $diskon != 0) {
+            $total = $hargapaket['harga'] * $qty;
+            $diskon = ($diskon/100) * $total;
+            $total_harga = ($total - $diskon) + $biaya_tambahan;
+        } elseif($biaya_tambahan != 0 AND $pajak != 0) {
+            $total = $hargapaket['harga'] * $qty;
+            $pajak = ($pajak/100) * $total;
+            $total_harga = $total + $pajak + $biaya_tambahan;
+        } elseif($diskon != 0 AND $pajak != 0) {
+            $total = $hargapaket['harga'] * $qty;
+            $diskon = ($diskon/100) * $total;
+            $pajak = ($pajak/100) * $total;
+            $total_harga = ($total - $diskon) + $pajak;
+        } elseif($diskon != 0 AND $pajak != 0 AND $biaya_tambahan != 0) {
+            $total = $hargapaket['harga'] * $qty;
+            $diskon = ($diskon/100) * $total;
+            $pajak = ($pajak/100) * $total;
+            $total_harga = ($total - $diskon) + $pajak + $biaya_tambahan;
+        } else {
+            $total_harga = $hargapaket['harga'] * qty;
+        }
+        // die($total_harga);
+        
         $kode_invoice;
         $transaksi = ambilsatubaris($conn,"SELECT * FROM transaksi WHERE kode_invoice = '" . $kode_invoice ."'");
         $transaksi_id = $transaksi['id_transaksi'];

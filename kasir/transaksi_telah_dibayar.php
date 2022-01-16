@@ -36,6 +36,7 @@ $data = ambilsatubaris($conn,$query);
                         <strong>Total Uang Bayar Rp.<?= $data['total_bayar'] ?></strong><br>
                         <strong>Kembalian Rp.<?= $data['total_bayar'] - $data['total_harga'] ?></strong><br><br>
                         <a href="transaksi.php" class="btn btn-primary">Kembali Ke Menu Utama</a>
+                        <button name="simpan_pj" value="Cetak Struk" class="btn btn-success" onclick="window.open('struklaundry.php?id=<?= $data['id_transaksi'] ?>')">Cetak Struk</button>
                     </div>
                 </div>
 
