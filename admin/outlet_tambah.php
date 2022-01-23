@@ -2,11 +2,16 @@
 $title = 'outlet';
 require'functions.php';
 
-
+// $role = 'admin';
+// $query = "SELECT * FROM user WHERE role = 'owner'";
+// $data = ambildata($conn, $query);
+// // die($data);
 if(isset($_POST['btn-simpan'])){
     $nama   = stripslashes($_POST['nama_outlet']);
     $alamat = stripslashes($_POST['alamat_outlet']);
     $telp   = stripslashes($_POST['telp_outlet']);
+    // $owner = $_POST['user'];
+    // die($owner);
 
     $query = "INSERT INTO outlet (nama_outlet,alamat_outlet,telp_outlet) values ('$nama','$alamat','$telp')";
     

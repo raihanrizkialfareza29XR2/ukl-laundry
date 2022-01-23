@@ -91,6 +91,44 @@ WHERE transaksi.status_bayar = 'dibayar' GROUP BY detail_transaksi.paket_id");
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+                    <li>
+                        <a data-toggle="modal" class="btn btn-primary" data-target="#smallModal">
+                            <!-- <i class="material-icons">account_circle</i> -->
+                            <span>Laporan Penjualan</span>
+                        </a>
+                    </li>
+                </div>
+                <div class="modal fade" id="smallModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="smallModalLabel">Laporan Penjualan</h4>
+                            </div>
+                            <div class="modal-body">
+                            <form method="POST" action="cetaklaporan.php" target="blank">
+
+                            <label for="">Tanggal Awal</label>
+
+                            <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="date" name="tgl_awal" class="form-control"  />
+                                    </div>
+                            </div>
+                            <label for="">Tanggal Akhir</label>
+
+                            <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="date" name="tgl_akhir" class="form-control"  />
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary waves-effect">CETAK</button>
+                                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            </div>
+
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

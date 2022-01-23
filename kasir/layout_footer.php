@@ -1,5 +1,5 @@
 <!-- /.container-fluid -->
-<footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by wrappixel.com | Repost by <a href='https://stokcoding.com/' title='StokCoding.com' target='_blank'>StokCoding.com</a>
+<footer class="footer text-center"> 2022 &copy; Admin Landing Page Ya Ges Ya | Repost by <a href='https://rizkigropus.com/ title='Rizkigroups.com' target='_blank'>Rizkigroups.com</a>
  </footer>
         </div>
         <!-- ============================================================== -->

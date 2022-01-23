@@ -2,7 +2,9 @@
 $title = 'transaksi';
 require 'functions.php';
 require 'layout_header.php';
-$query = "SELECT transaksi.*,member.nama_member , detail_transaksi.total_harga FROM transaksi INNER JOIN member ON member.id_member = transaksi.member_id INNER JOIN detail_transaksi ON detail_transaksi.transaksi_id = transaksi.id_transaksi ";
+$query = "SELECT transaksi.*,member.nama_member , detail_transaksi.total_harga, detail_transaksi.qty, paket.* FROM transaksi INNER JOIN member ON member.id_member = transaksi.member_id INNER JOIN detail_transaksi ON detail_transaksi.transaksi_id = transaksi.id_transaksi INNER JOIN paket ON paket.id_paket = detail_transaksi.paket_id ";
+$outlet = $_SESSION['outlet_id'];
+// die($outlet);
 $data = ambildata($conn,$query);
 ?> 
 <div class="container-fluid">
@@ -35,6 +37,8 @@ $data = ambildata($conn,$query);
                                 <th>#</th>
                                 <th>Invoice</th>
                                 <th>Member</th>
+                                <th>Paket</th>
+                                <th>Jumlah</th>
                                 <th>Status</th>
                                 <th>Pemabayaran</th>
                                 <th>Total Harga</th>
@@ -47,17 +51,53 @@ $data = ambildata($conn,$query);
                                     <td></td>
                                     <td><?= $transaksi['kode_invoice'] ?></td>
                                     <td><?= $transaksi['nama_member'] ?></td>
+                                    <td><?= $transaksi['nama_paket'] ?></td>
+                                    <td><?= $transaksi['qty'] ?>kg</td>
                                     <td><?= $transaksi['status'] ?></td>
                                     <td><?= $transaksi['status_bayar'] ?></td>
                                     <td><?= $transaksi['total_harga'] ?></td>
                                     <td align="center">
-                                          <a href="transaksi_detail.php?id=<?= $transaksi['id_transaksi']; ?>" data-toggle="tooltip" data-placement="bottom" title="Edit" class="btn btn-success btn-block">Detail</a>
+                                          <a href="transaksi_edit.php?id=<?= $transaksi['id_transaksi']; ?>" data-toggle="tooltip" data-placement="bottom" title="Detail" class="btn btn-success"><i class="fa fa-clipboard"></i></a>
+                                          <a href="transaksi_detail.php?id=<?= $transaksi['id_transaksi']; ?>" data-toggle="tooltip" data-placement="bottom" title="Edit" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                                          <!-- <a href="transaksi_hapus.php?id=<?= $transaksi['id_transaksi']; ?>" onclick="return confirm('Yakin hapus data ? ');" data-toggle="tooltip" data-placement="bottom" title="Hapus" class="btn btn-danger"><i class="fa fa-trash"></i></a> -->
+                                          <a data-toggle="modal" class="btn btn-danger" data-target="#smallModal">
+                                            <!-- <i class="material-icons">account_circle</i> -->
+                                            <i class="fa fa-trash"></i>
+                                            <!-- <span>Laporan Penjualan</span> -->
+                                          </a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
+                <?php foreach($data as $transaksi): ?>
+                    <div class="modal fade" id="smallModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="smallModalLabel">Password Owner</h4>
+                                </div>
+                                <div class="modal-body">
+                                <form method="POST" action="transaksi_hapus.php?id=<?= $transaksi['id_transaksi'] ?>&outlet=<?= $outlet ?>" target="blank">
+
+                                <label for="">Password Owner :</label>
+
+                                <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="passlama" class="form-control"  />
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" onclick="return confirm('Yakin hapus data ? ');" class="btn btn-primary waves-effect">SUBMIT</button>
+                                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

@@ -12,11 +12,19 @@ if(isset($_POST['btn-simpan'])){
     $nama     = $_POST['nama_user'];
     $username = $_POST['username'];
     $role     = $_POST['role'];
-    if($_POST['password'] != null || $_POST['password'] == ''){
-        $pass     = md5($_POST['password']);
-        $query = "UPDATE user SET nama_user = '$nama' , username = '$username' , role = '$role' , password ='$pass' WHERE id_user = '$id_user'";    
-    }else{
-        $query = "UPDATE user SET nama_user = '$nama' , username = '$username' , role = '$role' WHERE id_user = '$id_user'";
+    $passwordlam = $_POST['passlama'];
+    $querypass = "select * from user where id_user = '".$id_user."'";
+    $passwordlama = mysqli_query($conn, $querypass);
+    $passlama = mysqli_fetch_array($passwordlama);
+    if(md5($passwordlam)!=$passlama['password']){
+        echo "<script>alert('Password tidak sesuai');location.href='pengguna_edit.php?id=".$_GET['id']."';</script>";
+    } else {
+        if($_POST['password'] != null || $_POST['password'] == ''){
+            $pass     = md5($_POST['password']);
+            $query = "UPDATE user SET nama_user = '$nama' , username = '$username' , role = '$role' , password ='$pass' WHERE id_user = '$id_user'";    
+        }else{
+            $query = "UPDATE user SET nama_user = '$nama' , username = '$username' , role = '$role' WHERE id_user = '$id_user'";
+        }
     }
     
     
@@ -73,6 +81,10 @@ require'layout_header.php';
                     <label>Username</label>
                     <input type="text" name="username" class="form-control" value="<?= $edit['username'] ?>">
                 <div class="form-group">
+                    <label>Password Lama</label>
+                    <input type="text" name="passlama" required class="form-control">
+                </div>
+                <div class="form-group">
                     <label>Password</label>
                     <input type="text" name="password" class="form-control">
                     <small class="text-danger">Kosongkan saja jika tidak akan mengubah password</small>
@@ -80,12 +92,9 @@ require'layout_header.php';
                 <div class="form-group">
                     <label>Role</label>
                     <select name="role" class="form-control">
-                        <?php foreach ($role as $key): ?>
-                            <?php if ($key == $edit['role']): ?>
-                            <option value="<?= $key ?>" selected><?= $key ?></option>    
-                            <?php endif ?>
-                            <option value="<?= $key ?>"><?= ucfirst($key) ?></option>
-                        <?php endforeach ?>
+                        <option value="admin">Admin</option>
+                        <option value="owner">Owner</option>
+                        <option value="kasir">Kasir</option>
                     </select>
                 </div>
                 <div class="text-right">

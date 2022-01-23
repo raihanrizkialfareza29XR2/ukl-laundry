@@ -61,23 +61,23 @@ require'layout_header.php';
                 <form method="post" action="">
                 <div class="form-group">
                     <label>No KTP Member</label>
-                    <input type="text" name="no_ktp" class="form-control" value="<?= $edit['no_ktp'] ?>">
+                    <input type="text" name="no_ktp" class="form-control" required value="<?= $edit['no_ktp'] ?>">
                 </div>
                 <div class="form-group">
                     <label>Nama Member</label>
-                    <input type="text" name="nama_member" class="form-control" value="<?= $edit['nama_member'] ?>">
+                    <input type="text" name="nama_member" class="form-control" required value="<?= $edit['nama_member'] ?>">
                 </div>
                 <div class="form-group">
                     <label>Alamat Member</label>
-                    <input type="text" name="alamat_member" class="form-control" value="<?= $edit['alamat_member'] ?>">
+                    <input type="text" name="alamat_member" class="form-control" required value="<?= $edit['alamat_member'] ?>">
                 </div>
                 <div class="form-group">
                     <label>No Telepon</label>
-                    <input type="text" name="telp_member" class="form-control" value="<?= $edit['telp_member'] ?>">
+                    <input type="text" name="telp_member" class="form-control" required value="<?= $edit['telp_member'] ?>">
                 </div>
                 <div class="form-group">
                     <label>Jenis Kelamin</label>
-                    <select name="jenis_kelamin" class="form-control">
+                    <select name="jenis_kelamin" class="form-control" required>
                         <option value="L" <?php if($edit['jenis_kelamin']  == 'L'){echo "selected";} ?>>Laki-laki</option>
                         <option value="P" <?php if($edit['jenis_kelamin']  == 'P'){echo "selected";} ?>>Perempuan</option>
                     </select>

@@ -2,8 +2,9 @@
 $title = 'pengguna';
 require 'functions.php';
 require 'layout_header.php';
-$query = 'SELECT * FROM user order by role desc';
+$query = 'SELECT user.*, outlet.nama_outlet FROM user INNER JOIN outlet ON outlet.id_outlet = user.outlet_id order by role desc';
 $data = ambildata($conn,$query);
+// die($data);
 ?> 
 <div class="container-fluid">
     <div class="row bg-title">
@@ -35,6 +36,7 @@ $data = ambildata($conn,$query);
                                 <th>Nama</th>
                                 <th>Username</th>
                                 <th>Role</th>
+                                <th>Outlet</th>
                                 <th width="15%">Aksi</th>
                             </tr>
                         </thead>
@@ -45,6 +47,7 @@ $data = ambildata($conn,$query);
                                     <td><?= $user['nama_user'] ?></td>
                                     <td><?= $user['username'] ?></td>
                                     <td><?= $user['role'] ?></td>
+                                    <td><?= $user['nama_outlet'] ?></td>
                                     <td align="center">
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                           <a href="pengguna_edit.php?id=<?= $user['id_user']; ?>" data-toggle="tooltip" data-placement="bottom" title="Edit" class="btn btn-success"><i class="fa fa-edit"></i></a>

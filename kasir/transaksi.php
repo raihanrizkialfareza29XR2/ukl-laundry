@@ -2,9 +2,9 @@
 $title = 'transaksi';
 require 'functions.php';
 require 'layout_header.php';
-$query = "SELECT transaksi.*,member.nama_member , detail_transaksi.total_harga FROM transaksi INNER JOIN member ON member.id_member = transaksi.member_id INNER JOIN detail_transaksi ON detail_transaksi.transaksi_id = transaksi.id_transaksi WHERE transaksi.outlet_id = " . $_SESSION['outlet_id'];
+$query = "SELECT transaksi.*,member.nama_member , detail_transaksi.total_harga, paket.*, detail_transaksi.qty FROM transaksi INNER JOIN member ON member.id_member = transaksi.member_id INNER JOIN detail_transaksi ON detail_transaksi.transaksi_id = transaksi.id_transaksi INNER JOIN paket ON paket.id_paket = detail_transaksi.paket_id WHERE transaksi.outlet_id = " . $_SESSION['outlet_id'];
 $data = ambildata($conn,$query);
-
+// die($data);
 ?> 
 <div class="container-fluid">
     <div class="row bg-title">
@@ -36,6 +36,8 @@ $data = ambildata($conn,$query);
                                 <th>#</th>
                                 <th>Invoice</th>
                                 <th>Member</th>
+                                <th>Paket</th>
+                                <th>Jumlah</th>
                                 <th>Status</th>
                                 <th>Pemabayaran</th>
                                 <th>Total Harga</th>
@@ -44,20 +46,22 @@ $data = ambildata($conn,$query);
                         </thead>
                         <tbody>
                             <?php if(isset($data) != null): ?>
-                            <?php foreach($data as $transaksi): ?>
-                                <tr>
-                                    <td></td>
-                                    <td><?= $transaksi['kode_invoice'] ?></td>
-                                    <td><?= $transaksi['nama_member'] ?></td>
-                                    <td><?= $transaksi['status'] ?></td>
-                                    <td><?= $transaksi['status_bayar'] ?></td>
-                                    <td><?= $transaksi['total_harga'] ?></td>
-                                    <td align="center">
-                                          <a href="transaksi_detail.php?id=<?= $transaksi['id_transaksi']; ?>" data-toggle="tooltip" data-placement="bottom" title="Edit" class="btn btn-success btn-block">Detail</a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                                <?php foreach($data as $transaksi): ?>
+                                    <tr>
+                                        <td></td>
+                                        <td><?= $transaksi['kode_invoice'] ?></td>
+                                        <td><?= $transaksi['nama_member'] ?></td>
+                                        <td><?= $transaksi['nama_paket'] ?></td>
+                                        <td><?= $transaksi['qty'] ?></td>
+                                        <td><?= $transaksi['status'] ?></td>
+                                        <td><?= $transaksi['status_bayar'] ?></td>
+                                        <td><?= $transaksi['total_harga'] ?></td>
+                                        <td align="center">
+                                            <a href="transaksi_detail.php?id=<?= $transaksi['id_transaksi']; ?>" data-toggle="tooltip" data-placement="bottom" title="Edit" class="btn btn-success btn-block">Detail</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>

@@ -7,12 +7,11 @@ if(isset($_POST['btn-simpan'])){
     $username = $_POST['username'];
     $pass     = md5($_POST['password']);
     $role     = $_POST['role'];
-    if($role == 'kasir'){
+    if($role == 'kasir' || $role == 'owner'){
         $outlet_id = $_POST['outlet_id'];
         $query = "INSERT INTO user (nama_user,username,password,role,outlet_id) values ('$nama','$username','$pass','$role','$outlet_id')";
     }else{
         $query = "INSERT INTO user (nama_user,username,password,role) values ('$nama','$username','$pass','$role')";
-    
     }
     $execute = bisa($conn,$query);
     if($execute == 1){
@@ -61,26 +60,26 @@ require'layout_header.php';
                 <form method="post" action="">
                 <div class="form-group">
                     <label>Nama Pengguna</label>
-                    <input type="text" name="nama_user" class="form-control">
+                    <input type="text" name="nama_user" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" name="username" class="form-control">
+                    <input type="text" name="username" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="text" name="password" class="form-control">
+                    <input type="text" name="password" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label>Role</label>
-                    <select name="role" class="form-control">
+                    <select name="role" class="form-control" required>
                         <option value="admin">Admin</option>
                         <option value="owner">Owner</option>
                         <option value="kasir">Kasir</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Jika Role Nya Kasir Maka Pilih Outlet Dimana Dia Akan Ditempatkan</label>
+                    <label>Jika Role Nya Kasir Atau Owner Maka Pilih Outlet Dimana Dia Akan Ditempatkan</label>
                     <select name="outlet_id" class="form-control">
                         <?php foreach ($outlet as $key): ?>
                             <option value="<?= $key['id_outlet'] ?>"><?= $key['nama_outlet'] ?></option>

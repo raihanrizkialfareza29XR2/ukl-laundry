@@ -2,11 +2,12 @@
 $title = 'Struk';
 require 'functions.php';
 require 'layout_header.php';
-$query = "SELECT transaksi.*,member.* , detail_transaksi.*,outlet.*,paket.nama_paket, paket.harga FROM transaksi INNER JOIN member ON member.id_member = transaksi.member_id INNER JOIN detail_transaksi ON detail_transaksi.transaksi_id = transaksi.id_transaksi INNER JOIN outlet ON outlet.id_outlet = transaksi.outlet_id INNER JOIN paket ON paket.outlet_id = transaksi.outlet_id  WHERE transaksi.id_transaksi=".$_GET['id'];
+$query = "SELECT transaksi.*,member.* , detail_transaksi.*,outlet.*,paket.nama_paket, paket.harga FROM transaksi INNER JOIN member ON member.id_member = transaksi.member_id INNER JOIN detail_transaksi ON detail_transaksi.transaksi_id = transaksi.id_transaksi INNER JOIN outlet ON outlet.id_outlet = transaksi.outlet_id INNER JOIN paket ON paket.id_paket = detail_transaksi.paket_id  WHERE transaksi.id_transaksi=".$_GET['id'];
 $data = ambilsatubaris($conn,$query);
 $time = strtotime($data['tgl']);
 $format = date("d/m/y", $time);
 $jam = date("H:i:s", $time);
+// die($data['nama_paket'])
 // echo $data['alamat_outlet'];
 ?> 
 

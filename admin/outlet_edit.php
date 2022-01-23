@@ -59,7 +59,7 @@ require'layout_header.php';
                           <a href="javascript:void(0)" onclick="window.history.back();" class="btn btn-primary box-title"><i class="fa fa-arrow-left fa-fw"></i> Kembali</a>
                     </div>
                     <div class="col-md-6 text-right">
-                        <button id="btn-refresh" class="btn btn-primary box-title text-right" title="Refresh Data"><i class="fa fa-refresh" id="ic-refresh"></i></button>
+                    <!-- <button id="btn-refresh" class="btn btn-primary box-title text-right" title="Refresh Data"><i class="fa fa-refresh" id="ic-refresh"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -113,6 +113,10 @@ require'layout_header.php';
                         </select>
                     </div>
                 <?php endif; ?>
+                <small>Jika Belum Ada Owner, Maka Tambahkan Disini</small>
+                <a href="pengguna_tambah.php" class="btn btn-primary" style="margin-left: 12px;"> Tambah Pengguna
+                    <i class="fa fa-plus"></i>
+                </a>
                 <div class="text-right">
                     <button type="reset" class="btn btn-danger">Reset</button>
                     <button type="submit" name="btn-simpan" class="btn btn-primary">Simpan</button>

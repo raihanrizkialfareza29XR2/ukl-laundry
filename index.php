@@ -60,7 +60,7 @@
 					</div>
 					<div class="container-login100-form-btn mt-3">
 						<small>Laundry App By : Raihan Rizki Alfareza</small>
-						<br><center><p>Visit My Official Website : <a class="font-weight-bold" href='https://stokcoding.com/' title='StokCoding.com' target='_blank'>StokCoding.com</a></p></center>
+						<br><center><p>Visit My Official Website : <a class="font-weight-bold" href='https://rizkigroups.com/' title='rizkigroups.com' target='_blank'>rizkigroups.com</a></p></center>
 						
 					</div>
 				</form>

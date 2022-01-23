@@ -15,6 +15,7 @@ $member_id = $_GET['id'];
 // var_dump($outlet_id);
 
 $outlet = ambilsatubaris($conn,'SELECT nama_outlet from outlet WHERE id_outlet = ' . $outlet_id);
+// die($outlet);
 $member = ambilsatubaris($conn,'SELECT nama_member from member WHERE id_member = ' . $member_id);
 $paket = ambildata($conn,'SELECT * FROM paket WHERE outlet_id = ' . $outlet_id);
 if(isset($_POST['btn-simpan'])){   
@@ -34,37 +35,43 @@ if(isset($_POST['btn-simpan'])){
         $pajak = $_POST['pajak'];
         // die($diskon);
         $hargapaket = ambilsatubaris($conn,'SELECT harga from paket WHERE id_paket = ' . $paket_id);
-        if ($biaya_tambahan != 0) {
-            $total_harga = $hargapaket['harga'] * $qty + $biaya_tambahan;
-        } elseif($diskon != 0) {
-            $total = $hargapaket['harga'] * $qty;
-            $diskon = ($diskon/100) * $total;
-            $total_harga = $total - $diskon;
-        } elseif($pajak != 0) {
-            $total = $hargapaket['harga'] * $qty;
-            $pajak = ($pajak/100) * $total;
-            $total_harga = $total + $pajak;
-        } elseif($biaya_tambahan != 0 AND $diskon != 0) {
-            $total = $hargapaket['harga'] * $qty;
-            $diskon = ($diskon/100) * $total;
-            $total_harga = ($total - $diskon) + $biaya_tambahan;
-        } elseif($biaya_tambahan != 0 AND $pajak != 0) {
-            $total = $hargapaket['harga'] * $qty;
-            $pajak = ($pajak/100) * $total;
-            $total_harga = $total + $pajak + $biaya_tambahan;
-        } elseif($diskon != 0 AND $pajak != 0) {
-            $total = $hargapaket['harga'] * $qty;
-            $diskon = ($diskon/100) * $total;
-            $pajak = ($pajak/100) * $total;
-            $total_harga = ($total - $diskon) + $pajak;
-        } elseif($diskon != 0 AND $pajak != 0 AND $biaya_tambahan != 0) {
-            $total = $hargapaket['harga'] * $qty;
-            $diskon = ($diskon/100) * $total;
-            $pajak = ($pajak/100) * $total;
-            $total_harga = ($total - $diskon) + $pajak + $biaya_tambahan;
-        } else {
-            $total_harga = $hargapaket['harga'] * qty;
-        }
+        // die($paket_id);
+        // if ($biaya_tambahan != 0) {
+        //     $total_harga = $hargapaket['harga'] * $qty + $biaya_tambahan;
+        // } elseif($diskon != 0) {
+        //     $total = $hargapaket['harga'] * $qty;
+        //     $diskon = ($diskon/100) * $total;
+        //     $total_harga = $total - $diskon;
+        // } elseif($pajak != 0) {
+        //     $total = $hargapaket['harga'] * $qty;
+        //     $pajak = ($pajak/100) * $total;
+        //     $total_harga = $total + $pajak;
+        // } elseif($biaya_tambahan != 0 AND $diskon != 0) {
+        //     $total = $hargapaket['harga'] * $qty;
+        //     $diskon = ($diskon/100) * $total;
+        //     $total_harga = ($total - $diskon) + $biaya_tambahan;
+        // } elseif($biaya_tambahan != 0 AND $pajak != 0) {
+        //     $total = $hargapaket['harga'] * $qty;
+        //     $pajak = ($pajak/100) * $total;
+        //     $total_harga = $total + $pajak + $biaya_tambahan;
+        // } elseif($diskon != 0 AND $pajak != 0) {
+        //     $total = $hargapaket['harga'] * $qty;
+        //     $diskon = ($diskon/100) * $total;
+        //     $pajak = ($pajak/100) * $total;
+        //     $total_harga = ($total - $diskon) + $pajak;
+        // } elseif($diskon != 0 AND $pajak != 0 AND $biaya_tambahan != 0) {
+        //     $total = $hargapaket['harga'] * $qty;
+        //     $diskon = ($diskon/100) * $total;
+        //     $pajak = ($pajak/100) * $total;
+        //     $total_harga = ($total - $diskon) + $pajak + $biaya_tambahan;
+        // } else {
+        //     $total_harga = $hargapaket['harga'] * qty;
+        // }
+        $total = $hargapaket['harga'] * $qty;
+        $diskon = ($diskon/100) * $total;
+        $totall = ($total - $diskon) + $biaya_tambahan;
+        $pajaks = ($pajak/100) * $totall;
+        $total_harga = $totall + $pajaks;
         // die($total_harga);
         
         $kode_invoice;

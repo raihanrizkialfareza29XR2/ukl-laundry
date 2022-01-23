@@ -5,7 +5,7 @@ require 'layout_header.php';
 $jTransaksi = ambilsatubaris($conn,'SELECT COUNT(id_transaksi) as jumlahtransaksi FROM transaksi');
 $jPelanggan = ambilsatubaris($conn,'SELECT COUNT(id_member) as jumlahmember FROM member');
 $joutlet = ambilsatubaris($conn,'SELECT COUNT(id_outlet) as jumlahoutlet FROM outlet');
-$query = "SELECT transaksi.*,member.nama_member , detail_transaksi.total_harga FROM transaksi INNER JOIN member ON member.id_member = transaksi.member_id INNER JOIN detail_transaksi ON detail_transaksi.transaksi_id = transaksi.id_transaksi   ORDER BY transaksi.id_transaksi DESC LIMIT 10";
+$query = "SELECT transaksi.*,member.nama_member , detail_transaksi.total_harga, detail_transaksi.qty, paket.* FROM transaksi INNER JOIN member ON member.id_member = transaksi.member_id INNER JOIN detail_transaksi ON detail_transaksi.transaksi_id = transaksi.id_transaksi INNER JOIN paket ON paket.id_paket = detail_transaksi.paket_id   ORDER BY transaksi.id_transaksi DESC LIMIT 10";
 $data = ambildata($conn,$query);
 ?> 
 <div class="container-fluid">
@@ -27,7 +27,7 @@ $data = ambildata($conn,$query);
     <div class="row">
         <div class="col-lg-4 col-sm-6 col-xs-12">
             <div class="white-box analytics-info">
-                <h3 class="box-title">Oulet</h3>
+                <h3 class="box-title">Outlet</h3>
                 <ul class="list-inline two-part">
                     <li>
                         <div id="sparklinedash"></div>
@@ -70,6 +70,8 @@ $data = ambildata($conn,$query);
                                 <th>#</th>
                                 <th>Invoice</th>
                                 <th>Member</th>
+                                <th>Paket</th>
+                                <th>Jumlah</th>
                                 <th>Status</th>
                                 <th>Pemabayaran</th>
                                 <th>Total Harga</th>
@@ -82,6 +84,8 @@ $data = ambildata($conn,$query);
                                     <td><?= $no++ ?></td>
                                     <td><?= htmlspecialchars($transaksi['kode_invoice']); ?></td>
                                     <td><?= htmlspecialchars($transaksi['nama_member']); ?></td>
+                                    <td><?= htmlspecialchars($transaksi['nama_paket']); ?></td>
+                                    <td><?= htmlspecialchars($transaksi['qty']); ?></td>
                                     <td><?= htmlspecialchars($transaksi['status']); ?></td>
                                     <td><?= htmlspecialchars($transaksi['status_bayar']); ?></td>
                                     <td><?= htmlspecialchars($transaksi['total_harga']); ?></td>

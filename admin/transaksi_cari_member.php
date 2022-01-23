@@ -26,6 +26,7 @@ $data = ambildata($conn,$query);
                     </div>
                     <div class="col-md-6 text-right">
                         <small>Jika pelanggan belum terdaftar maka daftarkan dulu lewat menu pelanggan</small>
+                        <a href="pelanggan_tambah.php" class="btn btn-primary box-title text-right"><i class="fa fa-plus"></i></a>
                         <button id="btn-refresh" class="btn btn-primary box-title text-right" title="Refresh Data"><i class="fa fa-refresh" id="ic-refresh"></i></button>
                     </div>
                 </div>

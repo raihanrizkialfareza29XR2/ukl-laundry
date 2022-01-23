@@ -2,7 +2,7 @@
 $title = 'outlet';
 require 'functions.php';
 require 'layout_header.php';
-$query = 'SELECT outlet.*, user.nama_user FROM outlet LEFT JOIN user ON user.outlet_id = outlet.id_outlet';
+$query = 'SELECT outlet.*, user.* FROM outlet LEFT JOIN user ON user.outlet_id = outlet.id_outlet AND user.role = "owner"';
 $data = ambildata($conn,$query);
 ?> 
 <div class="container-fluid">

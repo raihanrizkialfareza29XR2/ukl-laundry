@@ -2,6 +2,7 @@
 $title = 'pelanggan';
 require 'functions.php';
 require 'layout_header.php';
+$outlet = $_SESSION['outlet_id'];
 $query = 'SELECT * FROM member';
 $data = ambildata($conn,$query);
 ?> 
@@ -52,7 +53,12 @@ $data = ambildata($conn,$query);
                                     <td align="center">
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                           <a href="pelanggan_edit.php?id=<?= $member['id_member']; ?>" data-toggle="tooltip" data-placement="bottom" title="Edit" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                                          <a href="pengguna_hapus.php?id=<?= $member['id_member']; ?>" onclick="return confirm('Yakin hapus data ? ');" data-toggle="tooltip" data-placement="bottom" title="Hapus" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                          <!-- <a href="pelanggan_hapus.php?id=<?= $member['id_member']; ?>" onclick="return confirm('Yakin hapus data ? ');" data-toggle="tooltip" data-placement="bottom" title="Hapus" class="btn btn-danger"><i class="fa fa-trash"></i></a> -->
+                                          <a data-toggle="modal" class="btn btn-danger" data-target="#smallModal">
+                                            <!-- <i class="material-icons">account_circle</i> -->
+                                            <i class="fa fa-trash"></i>
+                                            <!-- <span>Laporan Penjualan</span> -->
+                                          </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -60,6 +66,33 @@ $data = ambildata($conn,$query);
                         </tbody>
                     </table>
                 </div>
+                <?php foreach($data as $member): ?>
+                    <div class="modal fade" id="smallModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="smallModalLabel">Password Owner</h4>
+                                </div>
+                                <div class="modal-body">
+                                <form method="POST" action="transaksi_hapus.php?id=<?= $member['id_member'] ?>&outlet=<?= $outlet ?>" target="blank">
+
+                                <label for="">Password Owner :</label>
+
+                                <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="passlama" class="form-control"  />
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" onclick="return confirm('Yakin hapus data ? ');" class="btn btn-primary waves-effect">SUBMIT</button>
+                                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

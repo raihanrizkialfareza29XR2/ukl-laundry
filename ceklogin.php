@@ -1,6 +1,7 @@
 <?php
 session_start();
-$conn = mysqli_connect('localhost','root','','ujikom_laundry');
+$conn = mysqli_connect('localhost','rizkigro_rizkigroups','18September.mks','rizkigro_laundry');
+// die(mysqli_error($conn));
 
 $username = stripslashes($_POST['username']);
 $password = md5($_POST['password']);
@@ -31,6 +32,6 @@ if($cek > 0){
         header('location:owner');
     }
 }else{
-    $msg = 'Username Atau Password Salah';
+    $msg = 'Username Atau Password Anda Salah';
     header('location:index.php?msg='.$msg);
 }

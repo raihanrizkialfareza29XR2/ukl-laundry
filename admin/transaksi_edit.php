@@ -129,7 +129,7 @@ require'layout_header.php';
                 <?php else: ?>
                 <div class="form-group">
                     <label>Jumlah</label>
-                    <input type="number" name="qty" class="form-control" value="<?= $data['qty'] ?>"> 
+                    <input readonly="" type="number" name="qty" class="form-control" value="<?= $data['qty'] ?>"> 
                 </div>
                 <?php endif; ?>
                 <div class="form-group">
@@ -155,7 +155,7 @@ require'layout_header.php';
                     <input readonly=""   type="text" name="biaya_tambahan" class="form-control" value="<?= $data['batas_waktu'] ?>"> 
                 </div>
                 <?php  endif;?>
-                <?php if($data['status_bayar'] == 'dibayar'): ?>
+                <!-- <?php if($data['status_bayar'] == 'dibayar'): ?>
                     <div class="form-group">
                         <label>Status Transaksi</label>
                         <select name="status" class="form-control">
@@ -183,9 +183,10 @@ require'layout_header.php';
                         </select>
                         <small>Klik Tombol Ubah Untuk Menyimpan Perubahan Transaksi</small>
                     </div>
-                <?php  endif;?>
-                <div class="text-right">
-                    <button type="submit" name="btn-simpan" class="btn btn-primary">Ubah</button>
+                <?php  endif;?> -->
+                <div class="form-group">
+                    <label>Status Transaksi</label>
+                    <input type="text" readonly="" value="<?= $data['status'] ?>">
                 </div>
                 </form>
             </div>
